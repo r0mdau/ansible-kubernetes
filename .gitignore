@@ -1,2 +1,4 @@
 .idea/
 .vagrant/
+kubernetes-setup/join-command
+kubernetes-setup/kubeconfig
