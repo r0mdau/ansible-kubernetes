@@ -1,6 +1,17 @@
 # ansible-kubernetes
 
+This project is a good starting point to learn how to install and configure a 
+[Kubernetes](https://kubernetes.io) cluster.
+
+VM provisionning is fueled by [Vagrant](https://www.vagrantup.com/).
+Cluster configuration by [Ansible](https://www.ansible.com/)
+Kubernetes networking by [Calico](https://www.projectcalico.org/calico-networking-for-kubernetes/)
+Kubernetes automatic and dynamic routing by [Traefik](https://docs.traefik.io/)
+
 ## Quickstart
+Before Vagrant uping, this Vagrantfile will set up 3 VM, using 2 vCPU and 2Gio vRAM each, be shure you can
+carry that.
+
 
     vagrant up
     
@@ -31,6 +42,6 @@ Or you can use kubectl apply.
 
 ### Example app
 
-Everything should work, but running a your docker container is a must have.
+Everything should work, but running your custom docker image is a must have.
 Use kubectl to launch the `r0mdau/node-hello-docker` image with 2 instances reverse proxyed
 by traefik \o/
