@@ -1,0 +1,22 @@
+---
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  name: node-hello-docker
+  labels:
+    app: node-hello-docker
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: node-hello-docker
+  template:
+    metadata:
+      labels:
+        app: node-hello-docker
+    spec:
+      containers:
+      - name: node-hello-docker
+        image: r0mdau/node-hello-docker
+        ports:
+        - containerPort: 8080

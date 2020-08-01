@@ -26,3 +26,11 @@ Pre-requisites to use kubernetes module with ansible :
 To install and configure Traefik v1.7.
 
     ansible-playbook --private-key=~/.vagrant.d/insecure_private_key -u vagrant -i .vagrant/provisioners/ansible/inventory/vagrant_ansible_inventory traefik-playbook.yml
+
+Or you can use kubectl apply.
+
+### Example app
+
+Everything should work, but running a your docker container is a must have.
+Use kubectl to launch the `r0mdau/node-hello-docker` image with 2 instances reverse proxyed
+by traefik \o/
