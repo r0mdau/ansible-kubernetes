@@ -3,10 +3,10 @@
 This project is a good starting point to learn how to install and configure a 
 [Kubernetes](https://kubernetes.io) cluster.
 
-VM provisionning is fueled by [Vagrant](https://www.vagrantup.com/).
-Cluster configuration by [Ansible](https://www.ansible.com/)
-Kubernetes networking by [Calico](https://www.projectcalico.org/calico-networking-for-kubernetes/)
-Kubernetes automatic and dynamic routing by [Traefik](https://docs.traefik.io/)
+- VM provisionning is fueled by [Vagrant](https://www.vagrantup.com/).
+- Cluster configuration by [Ansible](https://www.ansible.com/)
+- Kubernetes networking by [Calico](https://www.projectcalico.org/calico-networking-for-kubernetes/)
+- Kubernetes automatic and dynamic routing by [Traefik](https://docs.traefik.io/)
 
 ## Quickstart
 Before Vagrant uping, this Vagrantfile will set up 3 VM, using 2 vCPU and 2Gio vRAM each, be shure you can
