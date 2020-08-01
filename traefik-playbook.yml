@@ -1,0 +1,19 @@
+---
+- hosts: k8s-master
+  become: true
+  tasks:
+
+    - name: K8s create traefik-ingress-controller ClusterRole, ClusterRoleBinding
+      k8s:
+        state: present
+        src: /traefik/traefik-crb.yml
+
+    - name: K8s create traefik-ingress-controller ServiceAccount, Deployment and Service
+      k8s:
+        state: present
+        src: /traefik/traefik-deploy.yml
+
+    - name: K8s create traefik-web-ui Service and Ingress
+      k8s:
+        state: present
+        src: /traefik/traefik-webui.yml
