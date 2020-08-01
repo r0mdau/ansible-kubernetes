@@ -9,7 +9,7 @@ This project is a good starting point to learn how to install and configure a
 - Kubernetes automatic and dynamic routing by [Traefik](https://docs.traefik.io/)
 
 ## Quickstart
-Before Vagrant uping, this Vagrantfile will set up 3 VM, using 2 vCPU and 2Gio vRAM each, be shure you can
+Before Vagrant uping, this Vagrantfile will set up 3 VM, using 2 vCPU and 2Gio vRAM each, be sure you can
 carry that.
 
 
