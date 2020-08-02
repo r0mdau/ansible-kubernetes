@@ -45,3 +45,12 @@ Or you can use kubectl apply.
 Everything should work, but running your custom docker image is a must have.
 Use kubectl to launch the `r0mdau/node-hello-docker` image with 2 instances reverse proxyed
 by traefik \o/
+
+### Dynamic provisionning volume
+
+When it comes to StateFull apps. I like this feature provided 
+by (Rancher team)[https://github.com/rancher/local-path-provisioner]
+
+    kubectl apply -f https://raw.githubusercontent.com/rancher/local-path-provisioner/master/deploy/local-path-storage.yaml
+
+Add `storageClassName: local-path` property to your PersistentVolumeClaims yaml file and let the automation work.
