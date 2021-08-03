@@ -42,6 +42,8 @@ When done, you may want to use kubectl commands from your host. So copy the gene
 to your home path :
 
     cp kubernetes-setup/kubeconfig ~/.kube/config
+    kubectl get nodes
+    # \o/ enjoy
 
 
 And for future node joining the cluster, the join command is available in `kubernetes-setup/join-command`
