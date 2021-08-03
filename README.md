@@ -13,17 +13,20 @@ Install required softwares
 
     # add virtualbox repository
     sudo wget -q https://www.virtualbox.org/download/oracle_vbox_2016.asc -O- | sudo apt-key add - \
-    && sudo echo "deb [arch=amd64] https://download.virtualbox.org/virtualbox/debian $(lsb_release -cs) contrib" > /etc/apt/sources.list.d/virtualbox.list \
+    && sudo echo "deb [arch=amd64] https://download.virtualbox.org/virtualbox/debian $(lsb_release -cs) contrib" > /etc/apt/sources.list.d/virtualbox.list
+    
     # add vagrant repository
-    && curl -fsSL https://apt.releases.hashicorp.com/gpg | sudo apt-key add - \
-    && sudo apt-add-repository "deb [arch=amd64] https://apt.releases.hashicorp.com $(lsb_release -cs) main" \
-    && sudo apt update \
+    curl -fsSL https://apt.releases.hashicorp.com/gpg | sudo apt-key add - \
+    && sudo apt-add-repository "deb [arch=amd64] https://apt.releases.hashicorp.com $(lsb_release -cs) main"
+    
     # install softwares
+    sudo apt update \
     && sudo apt install -y virtualbox-6.1 ansible vagrant \
     && export VAGRANT_DEFAULT_PROVIDER=virtualbox \
-    && vagrant plugin install vagrant-vbguest \
+    && vagrant plugin install vagrant-vbguest
+    
     # install virtualbox extension pack
-    && wget https://download.virtualbox.org/virtualbox/6.1.26/Oracle_VM_VirtualBox_Extension_Pack-6.1.26.vbox-extpack \
+    wget https://download.virtualbox.org/virtualbox/6.1.26/Oracle_VM_VirtualBox_Extension_Pack-6.1.26.vbox-extpack \
     && sudo VBoxManage extpack install --replace Oracle_VM_VirtualBox_Extension_Pack-6.1.26.vbox-extpack
 
 
