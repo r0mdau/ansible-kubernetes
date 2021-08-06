@@ -1,4 +1,4 @@
-IMAGE_NAME = "bento/ubuntu-18.04"
+IMAGE_NAME = "bento/ubuntu-16.04"
 N = 2
 
 Vagrant.configure("2") do |config|
@@ -13,7 +13,7 @@ Vagrant.configure("2") do |config|
         master.vm.box = IMAGE_NAME
         master.vm.network "private_network", ip: "192.168.50.10"
         master.vm.hostname = "k8s-master"
-        master.vm.provision "ansible" do |ansible|
+        master.vm.provision :ansible do |ansible|
             ansible.playbook = "kubernetes-setup/master-playbook.yml"
             ansible.extra_vars = {
                 node_ip: "192.168.50.10",
@@ -27,12 +27,15 @@ Vagrant.configure("2") do |config|
             node.vm.box = IMAGE_NAME
             node.vm.network "private_network", ip: "192.168.50.#{i + 10}"
             node.vm.hostname = "node-#{i}"
-            node.vm.provision "ansible" do |ansible|
-                ansible.playbook = "kubernetes-setup/node-playbook.yml"
-                ansible.extra_vars = {
-                    node_ip: "192.168.50.#{i + 10}",
-                    node_name: "node-#{i}",
-                }
+            if i == N
+                node.vm.provision :ansible do |ansible|
+                    ansible.limit = "node-*"
+                    ansible.playbook = "kubernetes-setup/node-playbook.yml"
+                    ansible.extra_vars = {
+                        node_ip: "192.168.50.#{i + 10}",
+                        node_name: "node-#{i}",
+                    }
+                end
             end
         end
     end
