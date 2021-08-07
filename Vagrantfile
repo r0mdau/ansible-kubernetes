@@ -1,4 +1,4 @@
-IMAGE_NAME = "bento/ubuntu-16.04"
+IMAGE_NAME = "ubuntu/bionic64"
 N = 2
 
 Vagrant.configure("2") do |config|
@@ -18,6 +18,7 @@ Vagrant.configure("2") do |config|
             ansible.extra_vars = {
                 node_ip: "192.168.50.10",
                 node_name: "k8s-master",
+                ansible_python_interpreter:"/usr/bin/python3",
             }
         end
     end
@@ -27,16 +28,16 @@ Vagrant.configure("2") do |config|
             node.vm.box = IMAGE_NAME
             node.vm.network "private_network", ip: "192.168.50.#{i + 10}"
             node.vm.hostname = "node-#{i}"
-            if i == N
-                node.vm.provision :ansible do |ansible|
-                    ansible.limit = "node-*"
-                    ansible.playbook = "kubernetes-setup/node-playbook.yml"
-                    ansible.extra_vars = {
-                        node_ip: "192.168.50.#{i + 10}",
-                        node_name: "node-#{i}",
-                    }
-                end
+            node.vm.provision :ansible do |ansible|
+                ansible.playbook = "kubernetes-setup/node-playbook.yml"
+                ansible.extra_vars = {
+                    node_ip: "192.168.50.#{i + 10}",
+                    node_name: "node-#{i}",
+                    ansible_python_interpreter:"/usr/bin/python3",
+                }
             end
         end
     end
+
+    config.vm.synced_folder "~/.ssh", "/home/vagrant/.ssh", type: "rsync", rsync__exclude: ['authorized_keys', 'config.d/*', 'config'], privileged: true
 end
