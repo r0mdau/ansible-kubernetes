@@ -83,9 +83,9 @@
         update_cache: yes
       vars:
         packages:
-          - kubelet
-          - kubeadm
-          - kubectl
+          - kubelet=1.20.8-00
+          - kubeadm=1.20.8-00
+          - kubectl=1.20.8-00
 
     - name: Configure node ip and cgroup driver
       lineinfile:
