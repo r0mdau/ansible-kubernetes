@@ -5,7 +5,7 @@
   tasks:
 
     - name: Initialize the Kubernetes cluster using kubeadm
-      command: kubeadm init --node-name {{ node_name }} --pod-network-cidr=10.244.0.0/16 --apiserver-advertise-address=192.168.50.10
+      command: kubeadm init --node-name {{ node_name }} --pod-network-cidr=10.244.0.0/16 --apiserver-advertise-address=192.168.56.10
 
     - name: Setup kubeconfig for vagrant user
       command: "{{ item }}"
