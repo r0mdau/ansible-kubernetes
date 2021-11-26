@@ -55,18 +55,27 @@ Pre-requisites to use kubernetes module with ansible :
     python >= 2.7
     openshift >= 0.6
     PyYAML >= 3.11
+    helm >= 3.6.3
 
-To install and configure Traefik v1.7.
+To install and configure Traefik v2.5:
 
-    ansible-playbook --private-key=~/.vagrant.d/insecure_private_key -u vagrant -i .vagrant/provisioners/ansible/inventory/vagrant_ansible_inventory traefik-playbook.yml
+    helm repo add traefik https://helm.traefik.io/traefik
+    helm repo update
+    helm install traefik traefik/traefik
 
-Or you can use kubectl apply.
+To access traefik dashboard locally:
+
+    kubens kube-system
+    kubectl port-forward $(kubectl get pods --selector "app.kubernetes.io/name=traefik" --output=name) 9000:9000
+
+Then browse to http://localhost:9000/dashboard/
+
 
 ### Example app
 
 Everything should work, but running your custom docker image is a must have.
-Use kubectl to launch the `r0mdau/node-hello-docker` image with 2 instances reverse proxyed
-by traefik \o/
+Use `kubectl apply` to launch yaml configurations file in the `example-app` folder. It will use a simple nodeJs docker
+ image with 2 instances reverse proxyed by traefik \o/
 
 ### Dynamic provisionning volume
 
