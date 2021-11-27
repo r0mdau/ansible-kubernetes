@@ -7,7 +7,7 @@ spec:
     - web
   routes:
   - kind: Rule
-    match: Host(`coucou.local`) && PathPrefix(`/`)
+    match: Host(`test.local`) && PathPrefix(`/`)
     services:
     - name: node-hello-docker-service
       port: 80
