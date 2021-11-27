@@ -1,0 +1,13 @@
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  name: node-hello-docker-ingressroute
+spec:
+  entryPoints:
+    - web
+  routes:
+  - kind: Rule
+    match: Host(`coucou.local`) && PathPrefix(`/`)
+    services:
+    - name: node-hello-docker-service
+      port: 80
