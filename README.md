@@ -30,12 +30,12 @@ Install required softwares
     && sudo VBoxManage extpack install --replace Oracle_VM_VirtualBox_Extension_Pack-6.1.26.vbox-extpack
 
 
-Before Vagrant uping, this Vagrantfile will set up 3 VM, using 2 vCPU and 2Gio vRAM each, be sure you can
+Before Vagrant uping, this Vagrantfile will set up **3 VM, using 2 vCPU and 2Gio vRAM each**, be sure you can
 carry that.
 
     vagrant up
     
-This will download vagrant box Ubuntu 16.04 and install a kubernetes cluster.
+This will download vagrant box Ubuntu Focal and install a kubernetes cluster.
 With 1 master and 2 nodes.
 
 When done, you may want to use kubectl commands from your host. So copy the generated kubeconfig
@@ -50,32 +50,45 @@ And for future node joining the cluster, the join command is available in `kuber
 
 ### Reverse Proxying with Traefik
 
-Pre-requisites to use kubernetes module with ansible : 
-
-    python >= 2.7
-    openshift >= 0.6
-    PyYAML >= 3.11
-    helm >= 3.6.3
-
-To install and configure Traefik v2.5:
+To install and configure Traefik v2.5 using helm:
 
     helm repo add traefik https://helm.traefik.io/traefik
     helm repo update
     helm install traefik traefik/traefik
 
-To access traefik dashboard locally:
+#### Traefik dashboard
+
+To install the dashboard:
+
+    # add this line to /etc/hosts
+    192.168.56.10 traefik.local
+    # execute
+    kubectl apply -f files/traefik/dashboard.yaml
+
+Then browse to http://traefik.local:<port>/dashboard/
+
+Find this auto-generated port in `kube-system` namespace looking at traefik service external port.
+
+Without installing the dashboard, you can access it with port-forward:
 
     kubens kube-system
     kubectl port-forward $(kubectl get pods --selector "app.kubernetes.io/name=traefik" --output=name) 9000:9000
 
 Then browse to http://localhost:9000/dashboard/
 
-
 ### Example app
 
 Everything should work, but running your custom docker image is a must have.
-Use `kubectl apply` to launch yaml configurations file in the `example-app` folder. It will use a simple nodeJs docker
+Use `kubectl apply` to launch yaml configurations files in the `files/app` folder. It will use a simple nodeJs docker
  image with 2 instances reverse proxyed by traefik \o/
+
+Edit `/etc/hosts`:
+
+    192.168.56.10 test.local traefik.local
+
+Then browse test.local:<port>
+
+Find this auto-generated port in `kube-system` namespace looking at traefik service external port.
 
 ### Dynamic provisionning volume
 
