@@ -75,12 +75,17 @@
         repo: deb https://apt.kubernetes.io/ kubernetes-xenial main
         state: present
         filename: kubernetes.list
-
-    - name: Install Kubernetes binaries
-      apt:
-        name: "{{ packages }}"
-        state: present
-        update_cache: yes
+    
+    - name: Kubernetes packages
+      block:
+        - name: Install Kubernetes binaries
+          apt:
+            name: "{{ packages }}"
+            state: present
+            update_cache: yes
+        - name: Hold Kubernetes packages
+          command: "apt-mark hold {{ item }}"
+          loop: "{{ packages }}"
       vars:
         packages:
           - kubelet
