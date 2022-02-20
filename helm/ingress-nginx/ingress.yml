@@ -1,0 +1,18 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: ingressromano
+  namespace: default
+spec:
+  ingressClassName: nginx
+  rules:
+    - host: test.local
+      http:
+        paths:
+          - pathType: Prefix
+            backend:
+              service:
+                name: node-hello-docker-service
+                port:
+                  number: 80
+            path: /
