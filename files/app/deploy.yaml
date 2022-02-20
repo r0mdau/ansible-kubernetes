@@ -12,6 +12,8 @@ spec:
       app: node-hello-docker
   template:
     metadata:
+      annotations:
+        instrumentation.opentelemetry.io/inject-nodejs: "true"
       labels:
         app: node-hello-docker
     spec:
