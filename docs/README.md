@@ -59,3 +59,7 @@ Then you can run this simple program:
 
     cd app/
     go run main.go
+
+Upscale kafka brokers:
+
+    kubectl scale --replicas=3 sts/kafkop-kafka
