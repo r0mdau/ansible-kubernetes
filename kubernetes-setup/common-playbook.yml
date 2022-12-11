@@ -47,6 +47,17 @@
         daemon_reload: yes
         state: restarted
 
+    - name: Remove containerd config file (delete file)
+      ansible.builtin.file:
+        path: /etc/containerd/config.toml
+        state: absent
+
+    - name: Restart containerd
+      service:
+        name: containerd
+        daemon_reload: yes
+        state: restarted
+
     - name: Add vagrant user to docker group
       user:
         name: vagrant
@@ -75,7 +86,7 @@
         repo: deb https://apt.kubernetes.io/ kubernetes-xenial main
         state: present
         filename: kubernetes.list
-    
+
     - name: Kubernetes packages
       block:
         - name: Install Kubernetes binaries
@@ -106,4 +117,4 @@
 
   handlers:
     - name: docker status
-      service: name=docker state=started        
+      service: name=docker state=started
