@@ -1,6 +1,6 @@
 # ansible-kubernetes misc
 
-## Install elasticsearch
+## Elasticsearch
 
 This helm chart comes from [github.com/bitnami/charts](https://github.com/bitnami/charts/tree/master/bitnami/elasticsearch).
 
@@ -28,3 +28,23 @@ After installation, to access kibana:
 
 Then open your web browser tp [http://localhost:5601/app/home](http://localhost:5601/app/home).
 Or open persistent access with an Ingress or NodePort.
+
+## Kafka
+
+The helm chart used comes from [github.com/bitnami/charts](https://github.com/bitnami/charts/tree/master/bitnami/elasticsearch).
+
+Installation:
+
+    kubectl apply -f https://raw.githubusercontent.com/rancher/local-path-provisioner/master/deploy/local-path-storage.yaml
+    helm repo update
+    cd helm/kafka
+    helm install -f values.yaml kafkop bitnami/kafka
+
+Port-forward allowing your local program to access the cluster:
+
+    kubectl port-forward pods/kafkop-kafka-0 9093:9093
+
+Then you can run this simple program:
+
+    cd app/
+    go run main.go
