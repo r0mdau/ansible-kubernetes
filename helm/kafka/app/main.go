@@ -9,6 +9,8 @@ import (
 	"github.com/segmentio/kafka-go"
 )
 
+// Ref: https://www.sohamkamani.com/golang/working-with-kafka/
+
 const (
 	topic          = "message-log"
 	broker1Address = "127.0.0.1:9093"
