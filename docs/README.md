@@ -44,6 +44,17 @@ Port-forward allowing your local program to access the cluster:
 
     kubectl port-forward pods/kafkop-kafka-0 9093:9093
 
+Kafka administration:
+
+    # create an administration pod
+    kubectl run kafkop-kafka-client --restart='Never' --image docker.io/bitnami/kafka:3.3.1-debian-11-r22 --namespace default --command -- sleep infinity
+    # enter into it, kafka scripts are available
+    kubectl exec --tty -i kafkop-kafka-client --namespace default -- bash
+    # create the topic used by the app
+    kafka-topics.sh --bootstrap-server kafkop-kafka-0.kafkop-kafka-headless.default.svc.cluster.local:9092 --topic message-log --create --partitions 3 --replication-factor 1
+
+More kafka cli tutorial here: [Conduktor kafkademy](https://www.conduktor.io/kafka/kafka-cli-tutorial).
+
 Then you can run this simple program:
 
     cd app/
